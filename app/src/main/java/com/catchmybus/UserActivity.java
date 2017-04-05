@@ -15,6 +15,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.catchmybus.adapters.StopsAdapter;
+import com.catchmybus.settings.AppData;
 import com.catchmybus.settings.AppSettings;
 
 import org.json.JSONArray;
@@ -103,10 +104,9 @@ public class UserActivity extends AppCompatActivity {
                 desintationLocationId = destination.getString("id");
 
         Intent intent = new Intent(this, BusesActivity.class);
-        intent.putExtra("source_location_id", sourceLocationId);
-        intent.putExtra("destination_location_id", desintationLocationId);
+        AppData.put(this, "source_location_id", sourceLocationId);
+        AppData.put(this, "destination_location_id", desintationLocationId);
         startActivity(intent);
-
 
     }
 

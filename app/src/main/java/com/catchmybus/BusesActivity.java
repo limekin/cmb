@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.android.volley.Request;
@@ -13,6 +15,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.catchmybus.adapters.GridBusesAdapter;
+import com.catchmybus.settings.AppData;
 import com.catchmybus.settings.AppSettings;
 
 import org.json.JSONArray;
@@ -32,14 +35,17 @@ public class BusesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buses);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent sourceIntent = this.getIntent();
-        sourceLocationId = sourceIntent.getStringExtra("source_location_id");
-        destinationLocationId = sourceIntent.getStringExtra("destination_location_id");
+        sourceLocationId = AppData.get(this, "source_location_id");
+        destinationLocationId = AppData.get(this, "destination_location_id");
 
         busesGv = (GridView) findViewById(R.id.busesGrid);
         buses = new ArrayList<>();
         adapter = new GridBusesAdapter(this, buses);
         busesGv.setAdapter(adapter);
+
+        setClickListeners();
 
         // Fetch the buses.
         try {
@@ -92,5 +98,29 @@ public class BusesActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
+    public void showMap(View view) {
+        Intent intent = new Intent(this, MapActivity.class);
+        startActivity(intent);
+    }
 
+    public void setClickListeners() {
+        busesGv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                JSONObject bus = (JSONObject) adapterView.getItemAtPosition(i);
+                String busId = null;
+                try {
+                    busId = bus.getString("id");
+                    Log.i("BUS", busId);
+
+                    Intent intent = new Intent(BusesActivity.this, BusInfoActivity.class);
+                    intent.putExtra("bus_id", busId);
+                    BusesActivity.this.startActivity(intent);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
 }

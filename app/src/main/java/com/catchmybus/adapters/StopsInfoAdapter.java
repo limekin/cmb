@@ -10,22 +10,16 @@ import android.widget.TextView;
 
 import com.catchmybus.R;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-/**
- * Created by ADMIN on 16/3/2017.
- */
-public class StopsAdapter extends BaseAdapter {
-
-
+public class StopsInfoAdapter extends BaseAdapter {
     private ArrayList<JSONObject> stops;
     private Context context;
 
-    public StopsAdapter(ArrayList<JSONObject> stops, Context context) {
+    public StopsInfoAdapter(ArrayList<JSONObject> stops, Context context) {
         this.stops = stops;
         this.context = context;
     }
@@ -48,19 +42,18 @@ public class StopsAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         LayoutInflater inflater = (LayoutInflater)
                 this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View returnView = inflater.inflate(R.layout.stops_view, null);
+        View returnView = inflater.inflate(R.layout.single_stop_info, null);
         TextView stopNameText = (TextView) returnView.findViewById(R.id.stopName);
-
+        TextView timeText = (TextView) returnView.findViewById(R.id.timeTaken);
         // Get the name of the stop at index i.
         try {
             String stopName = this.stops.get(i).getString("location");
             Log.i("RESPONSE", "Stop: " + stopName);
             stopNameText.setText(stopName);
-
+            timeText.setText(this.stops.get(i).getString("time_to_source"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         return returnView;
     }
 }

@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.catchmybus.MainActivity">
+    tools:context="com.catchmybus.MainActivity"
+    android:id="@+id/container">
     
     <RelativeLayout
         android:layout_width="match_parent"
@@ -20,10 +21,10 @@
             android:layout_height="wrap_content"
             android:text="Login"
             android:id="@+id/button"
-            android:onClick="showLogin"
+            android:onClick="handleLogin"
             android:theme="@style/AppButton"
             style="@style/AppButton"
-            android:layout_below="@+id/editText2"
+            android:layout_below="@+id/password"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="57dp"
             android:layout_alignParentStart="true"
@@ -63,25 +64,27 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/editText"
+            android:id="@+id/username"
             android:layout_below="@+id/textView"
             android:layout_marginTop="57dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentStart="true"
             android:theme="@style/AppInput"
-            android:hint="Your username." />
+            android:hint="Your username."
+            android:textColor="@color/colorWhite" />
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:ems="10"
-            android:id="@+id/editText2"
+            android:id="@+id/password"
             android:theme="@style/AppInput"
             android:hint="Your password."
-            android:layout_below="@+id/editText"
+            android:layout_below="@+id/username"
             android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:textColor="@color/colorWhite" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -96,9 +99,9 @@
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Remeber me"
+            android:text="Remember me"
             android:id="@+id/checkBox"
-            android:layout_below="@+id/editText2"
+            android:layout_below="@+id/password"
             android:layout_alignParentStart="true"
             android:textColor="@color/colorWhite"
             android:layout_marginTop="5dp"

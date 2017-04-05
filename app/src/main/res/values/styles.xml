@@ -3,8 +3,8 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">#303030</item>
+        <item name="colorPrimaryDark">#242424</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
@@ -24,6 +24,7 @@
         <item name='android:colorControlActivated'>@color/colorInputNormal</item>
         <item name='android:textColorHint'>@color/colorWhite</item>
         <item name='android:padding'>15dp</item>
+        <item name='android:textColor'>@color/colorWhite</item>
     </style>
 
     <style name='AppButton' parent='Theme.AppCompat.Light'>

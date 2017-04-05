@@ -5,6 +5,10 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorWhite">#FFFFFF</color>
 
+    <color name="colorPrimaryM">#303030</color>
+    <color name="colorPrimaryDarkM">#242424</color>
+    <color name="colorAccentM">@color/colorAccent</color>
+
     <color name='colorButtonStandard'>#3423F7</color>
     <color name='colorInputNormal'>@color/colorPrimary</color>
 </resources>
