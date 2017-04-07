@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -44,8 +45,7 @@ public class BusInfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_bus_info);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Intent sourceIntent = this.getIntent();
-        busId = sourceIntent.getStringExtra("bus_id");
+        busId = AppData.get(this, "selected_bus_id");
 
         busImageV = (ImageView) findViewById(R.id.busImage);
         stops = new ArrayList<>();
@@ -190,5 +190,10 @@ public class BusInfoActivity extends AppCompatActivity {
             this.stops.add(newStops.getJSONObject(i));
 
         this.adapter.notifyDataSetChanged();
+    }
+
+    public void showInMap(View view) {
+        Intent intent = new Intent(this, MapActivity.class);
+        startActivity(intent);
     }
 }

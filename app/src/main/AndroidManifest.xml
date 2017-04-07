@@ -38,10 +38,17 @@
             android:parentActivityName=".UserActivity" />
         <activity
             android:name=".MapActivity"
-            android:parentActivityName=".BusesActivity" />
+            android:parentActivityName=".BusInfoActivity" />
 
         <activity android:name=".BusInfoActivity"
             android:parentActivityName=".BusesActivity"></activity>
+
+        <service
+            android:name=".services.GeocodeIntentService"
+            android:exported="false"/>
+        <service
+            android:name=".services.TrackerIntentService"
+            android:exported="false"/>
     </application>
 
 </manifest>

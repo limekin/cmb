@@ -7,7 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class AppSettings {
-    public static String apiUrl = "http://192.168.0.100:8000";
+    public static String apiUrl = "http://192.168.0.101:8000";
     public static String prefFile = "datafile";
 
     public static JSONObject getAuthJson(Context context) {

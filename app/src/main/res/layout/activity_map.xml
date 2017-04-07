@@ -10,26 +10,40 @@
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="430dp"
-        tools:context="com.example.mapwithmarker.MapsMarkerActivity" />
+        android:layout_height="200dp"
+        tools:context="com.example.mapwithmarker.MapsMarkerActivity"
+        android:layout_above="@+id/relativeLayout4"
+        android:layout_alignParentTop="true" />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/map"
         android:background="@color/colorPrimaryM"
-        android:padding="10dp">
+        android:padding="5dp"
+        android:id="@+id/relativeLayout4">
 
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New Button"
+            android:layout_height="match_parent"
+            android:text="Track"
             android:id="@+id/button7"
-            android:layout_centerVertical="true"
+            style="@style/AppButton"
+            android:layout_alignParentTop="false"
             android:layout_alignParentEnd="true"
-            style="@style/AppButton" />
+            android:layout_centerVertical="true"
+            android:textStyle="bold"
+            android:onClick="startTracking" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/busId"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:textColor="@color/colorWhite" />
     </RelativeLayout>
 
 </RelativeLayout>

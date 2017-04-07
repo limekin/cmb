@@ -32,7 +32,7 @@
                     android:layout_below="@+id/busImage"
                     android:layout_alignParentStart="true"
                     android:padding="10dp"
-                    android:background="@color/colorPrimaryDarkM"
+                    android:background="@color/colorPrimaryDark"
                     android:layout_marginTop="5dp"
                     android:id="@+id/relativeLayout3">
 
@@ -40,22 +40,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="Details"
-                        android:id="@+id/textView11"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentStart="true"
-                        android:textColor="@color/colorPrimary" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="Name here"
+                        android:text="P.A Travels"
                         android:id="@+id/textView12"
-                        android:layout_below="@+id/textView11"
-                        android:layout_alignParentStart="true"
                         android:textColor="@color/colorWhite"
-                        android:textSize="25sp" />
+                        android:textSize="30sp"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -63,20 +54,49 @@
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:text="Minibus"
                         android:id="@+id/textView13"
+                        android:textColor="@color/colorWhite"
                         android:layout_below="@+id/textView12"
-                        android:layout_alignParentStart="true"
-                        android:textColor="@color/colorWhite" />
+                        android:layout_centerHorizontal="true" />
                 </RelativeLayout>
 
                 <ListView
                     android:layout_width="match_parent"
-                    android:layout_height="500dp"
+                    android:layout_height="400dp"
                     android:background="@color/colorPrimaryDarkM"
                     android:id="@+id/stopsList"
                     android:layout_below="@+id/relativeLayout3"
-                    android:layout_marginTop="5dp"></ListView>
+                    android:layout_marginTop="5dp"
+                    android:footerDividersEnabled="false"
+                    android:contextClickable="false"
+                    android:dividerHeight="1dp"
+                    android:drawSelectorOnTop="false"
+                    android:divider="@drawable/line_dark"></ListView>
             </RelativeLayout>
 
     </ScrollView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lock"
+            android:id="@+id/button8"
+            android:layout_weight="1"
+            style="@style/AppButton" />
+
+        <Button
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:text="View in map"
+            android:id="@+id/button9"
+            android:layout_weight="1"
+            style="@style/AppButton"
+            android:background="@color/colorPrimary"
+            android:onClick="showInMap" />
+    </LinearLayout>
 
 </RelativeLayout>

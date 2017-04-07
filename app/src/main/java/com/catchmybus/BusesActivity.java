@@ -114,7 +114,7 @@ public class BusesActivity extends AppCompatActivity {
                     Log.i("BUS", busId);
 
                     Intent intent = new Intent(BusesActivity.this, BusInfoActivity.class);
-                    intent.putExtra("bus_id", busId);
+                    AppData.put(BusesActivity.this, "selected_bus_id", busId);
                     BusesActivity.this.startActivity(intent);
 
                 } catch (JSONException e) {
