@@ -11,5 +11,5 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
         android:id="@+id/stopName"
-        android:textColor="@color/colorPrimary" />
+        android:textColor="@color/colorWhite" />
 </LinearLayout>
