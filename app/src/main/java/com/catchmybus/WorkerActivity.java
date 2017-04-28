@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
@@ -37,6 +38,8 @@ public class WorkerActivity extends AppCompatActivity {
     private Switch runModeSwitch;
     private String busId;
     private String currentMode;
+    private int delaySeconds =  -1;
+    private EditText descEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,7 @@ public class WorkerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_worker);
 
         fetchAssignedBusDetails();
+        descEdit= (EditText) findViewById(R.id.description);
     }
 
     public void fetchAssignedBusDetails() {
@@ -167,26 +171,30 @@ public class WorkerActivity extends AppCompatActivity {
         q.add(request);
     }
 
-    public void updateDelay(int secondss) {
-        /*
+    public void updateDelay(View view) {
+        if(! validate()) return;
+
         RequestQueue q = Volley.newRequestQueue(this);
         String url = AppSettings.apiUrl + "/core/worker/report_delay.php";
-        url += "?bus_id=" + busId;
-        url += "&run_mode=" + newRunMode;
+        JSONObject postData = new JSONObject();
+
+        try {
+            postData.put("bus_id", busId);
+            postData.put("delay_description", descEdit.getText().toString());
+            postData.put("delay_time", delaySeconds);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         JsonObjectRequest request = new JsonObjectRequest(
-                Request.Method.GET,
+                Request.Method.POST,
                 url,
-                null,
+                postData,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         Toast.makeText(WorkerActivity.this, "The run mode has been updated.", Toast.LENGTH_LONG)
                                 .show();
-                        // Also update it on the view.
-                        TextView busRunMode = (TextView) WorkerActivity.this.findViewById(R.id.busRunMode);
-                        busRunMode.setText(currentMode);
-
                     }
                 },
                 new Response.ErrorListener() {
@@ -201,7 +209,6 @@ public class WorkerActivity extends AppCompatActivity {
 
         // Send the request.
         q.add(request);
-        */
     }
 
     // Shows the time picker.
@@ -210,6 +217,11 @@ public class WorkerActivity extends AppCompatActivity {
         dialogFragment.show(this.getSupportFragmentManager(), "timePicker");
     }
 
+    public int convertSecondsToMinutes(int seconds) {
+        int minutes = seconds/60;
+
+        return minutes;
+    }
     public void setTime(int hourOfDay, int minute) {
         Date currentTime = Calendar.getInstance().getTime();
         int currentHour = currentTime.getHours();
@@ -217,8 +229,31 @@ public class WorkerActivity extends AppCompatActivity {
 
         // Now compute the differnece between the times.
         int seconds = Math.abs((currentHour*3600) + (currentMinute*60) - (hourOfDay*3600 + minute*60));
-        updateDelay(seconds);
+        this.delaySeconds  = seconds;
+
+        // Update it on the view.
+        TextView delayLabel = (TextView) findViewById(R.id.timeLabel);
+        delayLabel.setText("Estimated dalay: "
+                + String.valueOf(convertSecondsToMinutes(seconds))
+                + " minutes.");
     }
 
+    public boolean validate() {
+        String description = descEdit.getText().toString();
+
+        if(description.trim().isEmpty()) {
+            Toast.makeText(WorkerActivity.this, "You haven't written any description yet.", Toast.LENGTH_LONG)
+                .show();
+            return false;
+        }
+
+        if(delaySeconds == -1) {
+            Toast.makeText(WorkerActivity.this, "Please pick the delay time.", Toast.LENGTH_LONG)
+                    .show();
+            return false;
+        }
+
+        return true;
+    }
 
 }
