@@ -9,6 +9,7 @@ import org.json.JSONObject;
 public class AppSettings {
     public static String apiUrl = "http://192.168.0.104:8000";
     public static String prefFile = "datafile";
+    public static String favoritesFile = "favorite";
 
     public static JSONObject getAuthJson(Context context) {
         JSONObject data = new JSONObject();

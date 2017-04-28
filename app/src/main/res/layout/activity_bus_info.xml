@@ -42,7 +42,7 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="P.A Travels"
-                        android:id="@+id/textView12"
+                        android:id="@+id/busName"
                         android:textColor="@color/colorWhite"
                         android:textSize="30sp"
                         android:layout_centerVertical="true"
@@ -54,9 +54,9 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:text="Minibus"
-                        android:id="@+id/textView13"
+                        android:id="@+id/busType"
                         android:textColor="@color/colorWhite"
-                        android:layout_below="@+id/textView12"
+                        android:layout_below="@+id/busName"
                         android:layout_centerHorizontal="true" />
                 </RelativeLayout>
 
@@ -82,9 +82,9 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="Thrissur"
-                        android:id="@+id/textView16"
+                        android:id="@+id/sourceLocation"
                         android:textColor="@color/colorWhite"
-                        android:layout_alignTop="@+id/textView17"
+                        android:layout_alignTop="@+id/destinationLocation"
                         android:layout_alignStart="@+id/textView15" />
 
                     <TextView
@@ -92,18 +92,18 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="Koratty"
-                        android:id="@+id/textView17"
+                        android:id="@+id/destinationLocation"
                         android:textColor="@color/colorWhite"
                         android:layout_centerVertical="true"
-                        android:layout_toEndOf="@+id/textView16"
+                        android:layout_toEndOf="@+id/sourceLocation"
                         android:layout_marginLeft="10dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="25 Rs"
-                        android:id="@+id/textView18"
+                        android:text="Fetching"
+                        android:id="@+id/busFare"
                         android:textColor="#26C739"
                         android:textSize="30sp"
                         android:layout_centerVertical="true"

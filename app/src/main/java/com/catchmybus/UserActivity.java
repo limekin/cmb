@@ -20,6 +20,7 @@ import com.android.volley.toolbox.Volley;
 import com.catchmybus.adapters.StopsAdapter;
 import com.catchmybus.settings.AppData;
 import com.catchmybus.settings.AppSettings;
+import com.catchmybus.storage.FavoritesStore;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,6 +50,9 @@ public class UserActivity extends AppCompatActivity {
         stopsAdapter = new StopsAdapter(stops, this);
         sourceSpinner.setAdapter(stopsAdapter);
         destinationSpinner.setAdapter(stopsAdapter);
+        FavoritesStore favStore = new FavoritesStore(this);
+        JSONArray favorites = favStore.getFavorites();
+        Log.i("FAVOUTPUT", favorites.toString());
 
     }
 
@@ -121,12 +125,21 @@ public class UserActivity extends AppCompatActivity {
         Log.i("RESPONSE", response.toString());
         JSONArray stopsJsonArray = response.getJSONArray("data");
         this.stops.clear();
+
+        // Add placeholder.
+        JSONObject placeHolder = new JSONObject();
+        placeHolder.put("location", "Select location.");
+        stops.add(placeHolder);
+
+        // Now add the loaded stops.
         for(int i=0; i<stopsJsonArray.length(); ++i)
             stops.add(stopsJsonArray.getJSONObject(i));
+
         this.stopsAdapter.notifyDataSetChanged();
     }
 
     public void searchBuses(View view) throws JSONException {
+        if(!validateData()) return;
         // Get the id of the source and desitnation locations.
         JSONObject source = (JSONObject) sourceSpinner.getSelectedItem();
         JSONObject destination = (JSONObject) destinationSpinner.getSelectedItem();
@@ -136,8 +149,43 @@ public class UserActivity extends AppCompatActivity {
         Intent intent = new Intent(this, BusesActivity.class);
         AppData.put(this, "source_location_id", sourceLocationId);
         AppData.put(this, "destination_location_id", desintationLocationId);
+        AppData.put(this, "source_location", source.getString("location"));
+        AppData.put(this, "destination_location", destination.getString("location"));
         startActivity(intent);
 
+    }
+
+    public boolean validateData() throws JSONException {
+        JSONObject source = (JSONObject) sourceSpinner.getSelectedItem();
+        JSONObject destination = (JSONObject) destinationSpinner.getSelectedItem();
+        String sourceLocationId = null,
+                destinationLocationId = null;
+
+        if(source.has("id") && destination.has("id")) {
+            sourceLocationId = source.getString("id");
+            destinationLocationId = destination.getString("id");
+        }
+
+        if(sourceLocationId != null && destinationLocationId != null
+                && sourceLocationId == destinationLocationId) {
+            Toast.makeText(this, "Source location cannot be the same as destination.",
+                    Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        if(source.getString("location").equals("Select location.")) {
+            Toast.makeText(this, "You haven't picked any source location.",
+                    Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        if(destination.getString("location").equals("Select location.")) {
+            Toast.makeText(this, "You haven't picked any destination location.",
+                    Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        return true;
     }
 
 }

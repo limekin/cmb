@@ -1,11 +1,15 @@
 package com.catchmybus;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -38,7 +42,7 @@ public class WorkerActivity extends AppCompatActivity {
     private Switch runModeSwitch;
     private String busId;
     private String currentMode;
-    private int delaySeconds =  -1;
+    private int delaySeconds = -1;
     private EditText descEdit;
 
     @Override
@@ -48,6 +52,33 @@ public class WorkerActivity extends AppCompatActivity {
 
         fetchAssignedBusDetails();
         descEdit= (EditText) findViewById(R.id.description);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.logout:
+                AppData.put(this, "user_id", "none");
+                AppData.put(this, "token", "none");
+                AppData.put(this, "user_type", "none");
+
+                Toast.makeText(this, "You have been logged out of your account.", Toast.LENGTH_SHORT)
+                        .show();
+                // Now send to home page.
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     public void fetchAssignedBusDetails() {
